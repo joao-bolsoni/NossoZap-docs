@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Tecnológico - Nosso Zap</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #cc0000;
+            --primary-light: #ff6666;
+            --bg-light: #ffffff;
+            --bg-card: #f5f5f5;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-color: #FF0000;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, rgba(255, 0, 0, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+            background-attachment: fixed;
+        }
+
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-title {
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            position: relative;
+            padding-left: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .benefit-item:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+            background-color: rgba(255, 0, 0, 0.05);
+        }
+
+        .benefit-item:before {
+            content: "→";
+            color: var(--primary);
+            position: absolute;
+            left: 0.25rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title:after {
+            display: none;
+        }
+
+        .header {
+            text-align: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .header-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-top: 0.25rem;
+        }
+
+        .header-logo {
+            width: 140px;
+            height: 140px;
+            margin: 0;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .version-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 9999px;
+            color: var(--primary);
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .integration-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .integration-title {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .integration-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-title {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(255, 0, 0, 0.05), 0 2px 4px -1px rgba(255, 0, 0, 0.03);
+        }
+
+        .intro-title {
+            color: var(--primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .intro-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 3px;
+        }
+
+        .intro-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .intro-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .intro-list li:before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .highlight-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .section-divider {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .tech-card {
+                padding: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .intro-section {
+                padding: 1.5rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                padding: 1.5rem 0;
+            }
+            
+            .header-logo {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="novo_logo.png" alt="NossoZap Logo" class="header-logo">
+            <div class="header-content">
+                <h1 class="header-title">Stack Tecnológico</h1>
+                <p class="header-subtitle">As ferramentas que usamos para criar o NossoZap</p>
+            </div>
+        </header>
+
+        <!-- Visão Geral do Projeto -->
+        <section class="mb-12">
+            <div class="intro-section" style="background: linear-gradient(135deg, rgba(255, 0, 0, 0.08) 0%, rgba(255, 255, 255, 0) 100%);">
+                <h2 class="intro-title">Bem-vindo ao NossoZap</h2>
+                <p class="intro-text">
+                    O NossoZap é uma plataforma de comunicação moderna que reimagina a forma como as pessoas interagem online.
+                    Combinando a familiaridade de um aplicativo de mensagens com recursos avançados de inteligência artificial,
+                    criamos uma experiência única que torna a comunicação mais eficiente e profissional.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="feature-highlight" style="background: white; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(255, 0, 0, 0.1);">
+                        <h3 style="color: var(--primary); font-weight: 600; font-size: 1.25rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star" style="margin-right: 0.5rem;"></i>Principais Diferenciais
+                        </h3>
+                        <ul class="intro-list">
+                            <li>Mensagens aprimoradas por IA em tempo real</li>
+                            <li>Interface moderna e intuitiva</li>
+                            <li>Sistema de notificações inteligente</li>
+                            <li>Alta performance e confiabilidade</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-highlight" style="background: white; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid rgba(255, 0, 0, 0.1);">
+                        <h3 style="color: var(--primary); font-weight: 600; font-size: 1.25rem; margin-bottom: 1rem;">
+                            <i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>Nosso Impacto
+                        </h3>
+                        <ul class="intro-list">
+                            <li>Comunicação mais clara e profissional</li>
+                            <li>Redução de mal-entendidos</li>
+                            <li>Maior produtividade nas interações</li>
+                            <li>Experiência personalizada para cada usuário</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4" style="background: white; border-radius: 0.5rem; border: 1px solid rgba(255, 0, 0, 0.1);">
+                    <h3 style="color: var(--primary); font-weight: 600; font-size: 1.25rem; margin-bottom: 1rem;">
+                        <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>Por que o NossoZap?
+                    </h3>
+                    <p class="intro-text" style="margin-bottom: 1rem;">
+                        Em um mundo onde a comunicação digital é essencial, o NossoZap se destaca por oferecer uma solução que não apenas conecta pessoas,
+                        mas também melhora a qualidade dessa conexão. Nossa plataforma utiliza tecnologia de ponta para garantir que cada mensagem seja
+                        clara, profissional e efetiva.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div class="metric-highlight text-center">
+                            <div style="color: var(--primary); font-size: 2rem; font-weight: 700;">100%</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Processamento em Tempo Real</div>
+                        </div>
+                        <div class="metric-highlight text-center">
+                            <div style="color: var(--primary); font-size: 2rem; font-weight: 700;">24/7</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Disponibilidade</div>
+                        </div>
+                        <div class="metric-highlight text-center">
+                            <div style="color: var(--primary); font-size: 2rem; font-weight: 700;">IA</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Assistência Inteligente</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introdução -->
+        <section class="intro-section">
+            <h2 class="intro-title">O que é Stack Tecnológico?</h2>
+            <p class="intro-text">
+                Um stack tecnológico (ou pilha tecnológica) é o conjunto de tecnologias, linguagens, frameworks e ferramentas 
+                utilizadas para desenvolver uma aplicação. É como uma "caixa de ferramentas" que os desenvolvedores usam para 
+                construir um software completo.
+            </p>
+            <p class="intro-text">
+                No NossoZap, escolhemos cuidadosamente cada tecnologia para garantir que nossa aplicação seja:
+            </p>
+            <ul class="intro-list">
+                <li><strong class="highlight-text">Rápida e eficiente</strong> - Para que você tenha uma experiência fluida</li>
+                <li><strong class="highlight-text">Segura e confiável</strong> - Protegendo seus dados e mensagens</li>
+                <li><strong class="highlight-text">Fácil de usar</strong> - Com uma interface intuitiva e amigável</li>
+                <li><strong class="highlight-text">Escalável</strong> - Capaz de crescer conforme mais pessoas usam o sistema</li>
+            </ul>
+            <p class="intro-text">
+                Abaixo, você encontrará detalhes sobre cada tecnologia que utilizamos e por que a escolhemos para o NossoZap.
+            </p>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Frontend -->
+        <section class="mb-12">
+            <h2 class="section-title">Frontend</h2>
+            
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fab fa-react tech-icon"></i>React <span class="version-tag">v18.2.0</span></h3>
+                    <div class="tech-subtitle">Interface do usuário</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Escolhemos o React porque ele nos permite criar uma interface bonita e fácil de usar.
+                            Com ele, conseguimos fazer uma experiência fluida e responsiva para todos os usuários.
+                        </p>
+                        <div class="benefit-item">Rápido e eficiente</div>
+                        <div class="benefit-item">Fácil de manter e atualizar</div>
+                        <div class="benefit-item">Grande comunidade de desenvolvedores</div>
+                        <div class="benefit-item">Muitas bibliotecas disponíveis</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fab fa-js tech-icon"></i>TypeScript <span class="version-tag">v5.3.3</span></h3>
+                    <div class="tech-subtitle">JavaScript com tipos</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            TypeScript nos ajuda a evitar erros antes mesmo de executar o código.
+                            Ele torna o desenvolvimento mais seguro e fácil de entender.
+                        </p>
+                        <div class="benefit-item">Menos bugs no código</div>
+                        <div class="benefit-item">Melhor suporte do editor</div>
+                        <div class="benefit-item">Código mais fácil de entender</div>
+                        <div class="benefit-item">Facilita o trabalho em equipe</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-palette tech-icon"></i>Chakra UI <span class="version-tag">v2.8.2</span></h3>
+                    <div class="tech-subtitle">Componentes prontos</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Chakra UI nos fornece componentes bonitos e prontos para usar.
+                            Ele nos ajuda a manter um visual consistente em toda a aplicação.
+                        </p>
+                        <div class="benefit-item">Design moderno e acessível</div>
+                        <div class="benefit-item">Fácil de personalizar</div>
+                        <div class="benefit-item">Suporte a temas claro e escuro</div>
+                        <div class="benefit-item">Ótima performance</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-bolt tech-icon"></i>Vite <span class="version-tag">v6.3.2</span></h3>
+                    <div class="tech-subtitle">Ferramenta de desenvolvimento</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Vite torna o desenvolvimento muito mais rápido e agradável.
+                            Ele atualiza as mudanças instantaneamente enquanto trabalhamos.
+                        </p>
+                        <div class="benefit-item">Desenvolvimento super rápido</div>
+                        <div class="benefit-item">Atualizações instantâneas</div>
+                        <div class="benefit-item">Configuração simples</div>
+                        <div class="benefit-item">Otimizações automáticas</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-bell tech-icon"></i>Sistema de Notificações <span class="version-tag">Novo</span></h3>
+                    <div class="tech-subtitle">Alertas e atualizações</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Sistema de notificações em tempo real para manter os usuários informados sobre novas mensagens,
+                            convites e atualizações importantes.
+                        </p>
+                        <div class="benefit-item">Notificações em tempo real</div>
+                        <div class="benefit-item">Diferentes tipos de alertas</div>
+                        <div class="benefit-item">Personalização de preferências</div>
+                        <div class="benefit-item">Histórico de notificações</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-ad tech-icon"></i>Banner Rotativo <span class="version-tag">Novo</span></h3>
+                    <div class="tech-subtitle">Informações e anúncios</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Banner dinâmico que alterna entre diferentes tipos de conteúdo, incluindo dicas,
+                            estatísticas, datas especiais, mensagens motivacionais e anúncios de parceiros.
+                        </p>
+                        <div class="benefit-item">Conteúdo dinâmico</div>
+                        <div class="benefit-item">Temas personalizados</div>
+                        <div class="benefit-item">Integração com parceiros</div>
+                        <div class="benefit-item">Navegação intuitiva</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Backend -->
+        <section class="mb-12">
+            <h2 class="section-title">Backend</h2>
+            
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fab fa-node-js tech-icon"></i>Node.js + Express <span class="version-tag">v4.18.2</span></h3>
+                    <div class="tech-subtitle">Servidor e API</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Node.js e Express nos permitem criar um servidor rápido e eficiente.
+                            Usamos a mesma linguagem no frontend e backend, o que facilita o desenvolvimento.
+                        </p>
+                        <div class="benefit-item">Rápido e eficiente</div>
+                        <div class="benefit-item">TypeScript para mais segurança</div>
+                        <div class="benefit-item">Fácil de escalar</div>
+                        <div class="benefit-item">Grande comunidade</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-database tech-icon"></i>PostgreSQL <span class="version-tag">v8.11.3</span></h3>
+                    <div class="tech-subtitle">Banco de dados</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            PostgreSQL é um banco de dados confiável e poderoso.
+                            Ele mantém todos os dados do NossoZap seguros e organizados.
+                        </p>
+                        <div class="benefit-item">Dados sempre seguros</div>
+                        <div class="benefit-item">Consultas rápidas</div>
+                        <div class="benefit-item">Suporte a JSON</div>
+                        <div class="benefit-item">Fácil de expandir</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-plug tech-icon"></i>Socket.IO <span class="version-tag">v4.7.4</span></h3>
+                    <div class="tech-subtitle">Comunicação em tempo real</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Socket.IO permite que as mensagens apareçam instantaneamente.
+                            É o que faz o chat funcionar em tempo real, sem atrasos.
+                        </p>
+                        <div class="benefit-item">Mensagens instantâneas</div>
+                        <div class="benefit-item">Reconexão automática</div>
+                        <div class="benefit-item">Funciona em qualquer dispositivo</div>
+                        <div class="benefit-item">Baixa latência</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Integrações -->
+        <section class="mb-12">
+            <h2 class="section-title">Integrações</h2>
+            
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-comments tech-icon"></i>Twilio <span class="version-tag">v5.5.2</span></h3>
+                    <div class="tech-subtitle">Mensagens SMS</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Twilio nos permite enviar e receber mensagens SMS.
+                            É o que conecta o NossoZap com o WhatsApp e outros serviços de mensagem.
+                        </p>
+                        <div class="benefit-item">Mensagens entregues com sucesso</div>
+                        <div class="benefit-item">Suporte a vários países</div>
+                        <div class="benefit-item">Notificações em tempo real</div>
+                        <div class="benefit-item">Monitoramento de entregas</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fab fa-github tech-icon"></i>GitHub Actions <span class="version-tag">CI/CD</span></h3>
+                    <div class="tech-subtitle">Controle de versão e automação</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            GitHub nos ajuda a manter o código organizado e atualizado.
+                            Ele também automatiza tarefas como testes e implantação.
+                        </p>
+                        <div class="benefit-item">Código sempre atualizado</div>
+                        <div class="benefit-item">Automação de tarefas</div>
+                        <div class="benefit-item">Trabalho em equipe facilitado</div>
+                        <div class="benefit-item">Documentação integrada</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-handshake tech-icon"></i>Parcerias Comerciais <span class="version-tag">Novo</span></h3>
+                    <div class="tech-subtitle">Integração com parceiros</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            O NossoZap estabelece parcerias comerciais com empresas inovadoras,
+                            como o apponte.me, para oferecer soluções complementares aos usuários.
+                        </p>
+                        <div class="benefit-item">Banner promocional rotativo</div>
+                        <div class="benefit-item">Visibilidade para parceiros</div>
+                        <div class="benefit-item">Benefícios para usuários</div>
+                        <div class="benefit-item">Modelo de negócio sustentável</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Segurança -->
+        <section class="mb-12">
+            <h2 class="section-title">Segurança</h2>
+            
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-lock tech-icon"></i>JWT + bcrypt <span class="version-tag">v9.0.2 + v5.1.1</span></h3>
+                    <div class="tech-subtitle">Autenticação e proteção</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            JWT e bcrypt garantem que apenas usuários autorizados possam acessar o NossoZap.
+                            Suas senhas e dados pessoais ficam protegidos.
+                        </p>
+                        <div class="benefit-item">Login seguro</div>
+                        <div class="benefit-item">Senhas protegidas</div>
+                        <div class="benefit-item">Proteção contra invasões</div>
+                        <div class="benefit-item">Acesso controlado</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-shield-alt tech-icon"></i>CORS + Helmet <span class="version-tag">v2.8.5</span></h3>
+                    <div class="tech-subtitle">Proteção adicional</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            CORS e Helmet adicionam camadas extras de segurança ao NossoZap.
+                            Eles protegem contra ataques comuns na web.
+                        </p>
+                        <div class="benefit-item">Proteção contra hackers</div>
+                        <div class="benefit-item">Controle de acesso</div>
+                        <div class="benefit-item">Headers de segurança</div>
+                        <div class="benefit-item">Dados protegidos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- DevOps -->
+        <section class="mb-12">
+            <h2 class="section-title">DevOps & Ferramentas</h2>
+            
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fab fa-docker tech-icon"></i>Docker + Cloud Run</h3>
+                    <div class="tech-subtitle">Containerização e implantação</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            Docker e Cloud Run garantem que o NossoZap funcione da mesma forma em qualquer lugar.
+                            Eles facilitam a implantação e o escalonamento da aplicação.
+                        </p>
+                        <div class="benefit-item">Funciona em qualquer ambiente</div>
+                        <div class="benefit-item">Escalonamento automático</div>
+                        <div class="benefit-item">Implantação simplificada</div>
+                        <div class="benefit-item">Monitoramento integrado</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title"><i class="fas fa-code tech-icon"></i>ESLint + Prettier</h3>
+                    <div class="tech-subtitle">Qualidade do código</div>
+                    <div class="space-y-2">
+                        <p class="text-gray-700 mb-4">
+                            ESLint e Prettier mantêm nosso código limpo e organizado.
+                            Eles garantem que todos sigam os mesmos padrões.
+                        </p>
+                        <div class="benefit-item">Código mais limpo</div>
+                        <div class="benefit-item">Formatação consistente</div>
+                        <div class="benefit-item">Menos erros</div>
+                        <div class="benefit-item">Fácil de manter</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Monitoramento -->
+        <section class="mb-12">
+            <h2 class="section-title">Monitoramento</h2>
+            
+            <div class="tech-card">
+                <h3 class="tech-title"><i class="fas fa-chart-line tech-icon"></i>Métricas de Performance</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="metric-card">
+                        <div class="metric-title">Tempo de Resposta</div>
+                        <div class="metric-value">1-3ms</div>
+                        <div class="metric-desc">Consultas simples</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Latência</div>
+                        <div class="metric-value">~100-300ms</div>
+                        <div class="metric-desc">Conexões iniciais</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Atualizações em Lote</div>
+                        <div class="metric-value">~10ms</div>
+                        <div class="metric-desc">Processamento rápido</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <h3 class="tech-title"><i class="fas fa-tachometer-alt tech-icon"></i>Otimizações</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="integration-card">
+                        <div class="integration-title">Cache</div>
+                        <div class="integration-desc">Dados frequentemente acessados são armazenados em memória para acesso rápido</div>
+                    </div>
+                    <div class="integration-card">
+                        <div class="integration-title">Índices</div>
+                        <div class="integration-desc">Organização especial para encontrar informações rapidamente</div>
+                    </div>
+                    <div class="integration-card">
+                        <div class="integration-title">Paginação</div>
+                        <div class="integration-desc">Carregamento de informações em partes para melhor desempenho</div>
+                    </div>
+                    <div class="integration-card">
+                        <div class="integration-title">Processamento em Lote</div>
+                        <div class="integration-desc">Operações pesadas são realizadas em grupo para maior eficiência</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Comunicação em Tempo Real -->
+        <section class="mb-12">
+            <h2 class="section-title">Comunicação em Tempo Real</h2>
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-comments tech-icon"></i>
+                        WebSocket
+                    </h3>
+                    <p class="tech-subtitle">Comunicação bidirecional em tempo real</p>
+                    <div class="benefit-item">Chat em tempo real com atualizações instantâneas</div>
+                    <div class="benefit-item">Sistema de status online/offline</div>
+                    <div class="benefit-item">Notificações em tempo real</div>
+                    <div class="benefit-item">Alinhamento automático de mensagens por remetente</div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-sms tech-icon"></i>
+                        Twilio SMS
+                    </h3>
+                    <p class="tech-subtitle">Integração com serviço de mensagens SMS</p>
+                    <div class="benefit-item">Envio de SMS para convites e notificações</div>
+                    <div class="benefit-item">Validação de credenciais em tempo real</div>
+                    <div class="benefit-item">Integração com sistema de convites</div>
+                    <div class="benefit-item">Suporte a múltiplos números de telefone</div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-database tech-icon"></i>
+                        Redis
+                    </h3>
+                    <p class="tech-subtitle">Cache e gerenciamento de sessões</p>
+                    <div class="benefit-item">Cache de mensagens para melhor performance</div>
+                    <div class="benefit-item">Gerenciamento de sessões de usuário</div>
+                    <div class="benefit-item">Armazenamento de estados em tempo real</div>
+                    <div class="benefit-item">Otimização de consultas frequentes</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Inteligência Artificial -->
+        <section class="mb-12">
+            <h2 class="section-title">Inteligência Artificial</h2>
+            <div class="card-grid">
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-brain tech-icon"></i>
+                        Modificação de Mensagens
+                    </h3>
+                    <p class="tech-subtitle">Processamento de linguagem natural em tempo real</p>
+                    <div class="benefit-item">Mensagens automaticamente melhoradas</div>
+                    <div class="benefit-item">Tom profissional e amigável</div>
+                    <div class="benefit-item">Manutenção do significado original</div>
+                    <div class="benefit-item">Processamento em tempo real</div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-robot tech-icon"></i>
+                        Google Gemini Pro <span class="version-tag">v1.5</span>
+                    </h3>
+                    <p class="tech-subtitle">Modelo de linguagem avançado do Google</p>
+                    <div class="benefit-item">Alta precisão na melhoria de textos</div>
+                    <div class="benefit-item">Processamento rápido e eficiente</div>
+                    <div class="benefit-item">Excelente compreensão contextual</div>
+                    <div class="benefit-item">Integração via API REST</div>
+                </div>
+
+                <div class="tech-card">
+                    <h3 class="tech-title">
+                        <i class="fas fa-magic tech-icon"></i>
+                        Assistente de Comunicação
+                    </h3>
+                    <p class="tech-subtitle">Melhoria automática da comunicação</p>
+                    <div class="benefit-item">Mensagens mais claras e profissionais</div>
+                    <div class="benefit-item">Redução de mal-entendidos</div>
+                    <div class="benefit-item">Experiência de usuário aprimorada</div>
+                    <div class="benefit-item">Personalização baseada no contexto</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html> 
