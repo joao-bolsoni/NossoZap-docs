@@ -1,31 +1,43 @@
-# NossoZap - Tech Stack
+# NossoZap Documentation
 
-Este repositório contém a documentação técnica do NossoZap, um sistema de chat em tempo real desenvolvido com tecnologias modernas.
+Este repositório contém a documentação oficial do projeto NossoZap, incluindo arquitetura, stack tecnológica e guias de desenvolvimento.
 
-## Conteúdo
+## Estrutura
 
-- [Tech Stack](https://joao-bolsoni.github.io/NossoZap-docs/public/tech-stack.html) - Documentação detalhada da stack tecnológica utilizada no projeto
+- `architecture.html` - Documentação detalhada da arquitetura do sistema
+- `tech-stack.html` - Stack tecnológica utilizada no projeto
+- `index.html` - Página inicial da documentação
+- `.github/workflows` - Configurações de CI/CD para GitHub Pages
 
-## Sobre o NossoZap
+## Acesso Online
 
-O NossoZap é um sistema de chat em tempo real que oferece:
+A documentação está disponível online através do GitHub Pages:
 
-- Comunicação instantânea
-- Interface moderna e responsiva
-- Suporte a múltiplos usuários
-- Recursos de administração
-- Integração com WhatsApp
+- Arquitetura: https://joao-bolsoni.github.io/NossoZap-docs/architecture.html
+- Stack Tecnológica: https://joao-bolsoni.github.io/NossoZap-docs/tech-stack.html
 
-## Acesso à Documentação
+## Desenvolvimento Local
 
-A documentação completa da stack tecnológica está disponível em:
-- [Tech Stack](https://joao-bolsoni.github.io/NossoZap-docs/public/tech-stack.html)
+Para executar a documentação localmente:
 
-## Tecnologias Principais
+1. Clone o repositório
+2. Abra os arquivos HTML diretamente no navegador
+3. Para alterações, edite os arquivos HTML correspondentes
 
-- Frontend: React, TypeScript, Tailwind CSS
-- Backend: Node.js, Express, Socket.IO
-- Banco de Dados: PostgreSQL
-- Autenticação: JWT
-- Real-time: Socket.IO
-- UI/UX: Tailwind CSS, Font Awesome 
+## Contribuição
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-documentacao`)
+3. Commit suas alterações (`git commit -am 'Adiciona nova documentação'`)
+4. Push para a branch (`git push origin feature/nova-documentacao`)
+5. Crie um Pull Request
+
+## Versionamento
+
+Este repositório segue o mesmo versionamento dos projetos principais:
+- Frontend: [NossoZap-frontend](https://github.com/joao-bolsoni/NossoZap-frontend)
+- Backend: [NossoZap-backend](https://github.com/joao-bolsoni/NossoZap-backend)
+
+## Licença
+
+Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes. 
